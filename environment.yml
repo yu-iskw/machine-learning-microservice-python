@@ -1,0 +1,15 @@
+name: machine-learning-microservice-python
+channels:
+    - https://conda.anaconda.org/menpo
+    - conda-forge
+dependencies:
+    - python==3.6
+    - protobuf
+    - openblas
+    - pip:
+        - grpcio
+        - grpcio-tools
+        - scikit-learn==0.19.0
+        - scipy
+        - numpy
+        - pandas

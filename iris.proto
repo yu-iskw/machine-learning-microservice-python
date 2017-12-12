@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.ml";
+option java_outer_classname = "IrisProto";
+option objc_class_prefix = "HLW";
+
+package ml;
+
+service IrisPredictor {
+  rpc PredictIrisSpecies (IrisPredictRequest) returns (IrisPredictReply) {}
+}
+
+// The request message containing the user's name.
+message IrisPredictRequest {
+  float sepal_length;
+  float sepal_width;
+  float petal_length;
+  float petal_width;
+}
+
+// The response message containing the greetings
+message IrisPredictReply {
+  string species = 1;
+}
