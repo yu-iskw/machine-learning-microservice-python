@@ -11,15 +11,13 @@ service IrisPredictor {
   rpc PredictIrisSpecies (IrisPredictRequest) returns (IrisPredictReply) {}
 }
 
-// The request message containing the user's name.
 message IrisPredictRequest {
-  float sepal_length;
-  float sepal_width;
-  float petal_length;
-  float petal_width;
+  double sepal_length = 1;
+  double sepal_width = 2;
+  double petal_length = 3;
+  double petal_width = 4;
 }
 
-// The response message containing the greetings
 message IrisPredictReply {
-  string species = 1;
+  int32 species = 1;
 }

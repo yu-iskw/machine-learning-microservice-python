@@ -1,9 +1,7 @@
-# gRPC example in python
+# Machine learning as a microservice in python
 
-This is an example to run gRPC server on docker as well as access the server from a client on a local machine.
-Those files in the repository derives from an official example.
-
-- [grpc/examples/python/helloworld at master · grpc/grpc](https://github.com/grpc/grpc/tree/master/examples/python/helloworld)
+This is an example to service machine larning as a microservice in python.
+The model predicts iris species by given sepal length, sepal width, petal length and petal width.
 
 ## Requirements
 
@@ -13,42 +11,60 @@ Those files in the repository derives from an official example.
 
 ## Implement the files
 
-1. Define the protocol-buffer in `helloworld.proto`.
-2. Implement a command to generate python files from `helloworld.proto` in `codegen.py`.
-3. Implement `grpc_server.py`.
-4. Implement `greeter_server.py`.
+1. Train a model for iris data with `./model/train.py`.
+  - As a result, it saves a model to predict iris species in `iris_model.pickle`.
+2. Define the protocol-buffer in `iris.proto`.
+3. Implement a command to generate python files from `iris.proto` in `codegen.py`.
+  - `iris_pb2.py` and `iris_pb2_grpc.py` are generated.
+4. Implement `grpc_server.py`.
+  - We predict iris species by given features in `grpc_server.py`.
+5. Implement `iris_client.py`.
+  - The files is just a client to request judging iris species with features which are fixed values of sepal length, sepal width, petal length and petal width.
+
 
 ## How to set up an environment on our local machine
 The command creates an anaconda environment.
-We can activate the environment with `source activate grpc-example`, since the environment name is `grpc-example`.
+We can activate the environment with `source activate iris-predictor`, since the environment name is `iris-predictor`.
 ```
-make create-conda
+# Create an anaconda environment.
+conda env create -f environment.yml -n iris-predictor
 
-# If you would like to remove the anaconda envronment,
-make delete-conda
+# Remove the anaconda environment.
+conda env remove -y -n iris-predictor
 ```
 
 ## How to run the server and the client on our local machine
+Before running the predictor as a docker container, we can run the server and client on our local machine.
 ```
+# Run serve.
 python grpc_server.py
 
-python greeter_client.py
-Greeter client received: Hello, cool guy!
+# Run client.
+python iris_client.py
 ```
 
 ## How to build and run a docker image
-The docker image is used for running `grpc_server.py`.
+We put the python files and saved model in the docker image.
+Besides, the docker image is used for running `grpc_server.py`.
+
 The host name depends on your environment.
 If you use `docker-machine`, we can see the IP address with `docker-machine ip YOUR_DOCKER_MACHINE`.
-```
-make build-docker
 
-make run-docker
+The docker image exposes `50052` port for the gRPC server.
+As well as, the gRPC server uses `50052`.
+That's why we put `-p 50052:50052` in the `docker run` command.
+```
+# Build a docker image.
+docker build . -t iris-predictor
+
+# Run a docker container.
+docker run --rm -d -p 50052:50052 --name iris-predictor iris-predictor
 ```
 
 And then, we check if the client can access the server on docker or not:
 
 ```
 # Execute it on your local machine, not a docker container.
-python greeter_cliept.py --host HOST_NAME --port 50051
+python iris_cliept.py --host HOST_NAME --port 50052
+Predicted species number: 0
 ```

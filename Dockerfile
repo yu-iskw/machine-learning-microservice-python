@@ -22,7 +22,7 @@ RUN curl -LO http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
 ENV PATH /miniconda/bin:$PATH
 
 # Create a conda environment
-ENV CONDA_ENV_NAME grpc-example
+ENV CONDA_ENV_NAME iris-predictor
 COPY environment.yml  ./environment.yml
 RUN conda env create -f environment.yml -n $CONDA_ENV_NAME
 ENV PATH /miniconda/envs/${CONDA_ENV_NAME}/bin:$PATH
@@ -32,7 +32,7 @@ RUN conda clean -tp -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 50051
+EXPOSE 50052
 
 COPY . /root/
 CMD ["python", "grpc_server.py"]

@@ -1,4 +1,4 @@
-name: machine-learning-microservice-python
+name: iris-predictor
 channels:
     - https://conda.anaconda.org/menpo
     - conda-forge

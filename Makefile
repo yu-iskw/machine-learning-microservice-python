@@ -1,16 +1,14 @@
-CONDA_NAME := machine-learning-microservice-python
+NAME := iris-predictor
 PYTHON_VERSION := 3.6
 
-DOCKER_TAG := python-grpc-example
-
 build-docker:
-	docker build . -t $(DOCKER_TAG)
+	docker build . -t $(NAME)
 
 run-docker:
-	docker run --rm -d -p 50052:50052 --name grpc-example $(DOCKER_TAG)
+	docker run --rm -d -p 50052:50052 --name $(NAME) $(NAME)
 
 create-conda:
-	conda env create -f environment.yml -n $(CONDA_NAME)
+	conda env create -f environment.yml -n $(NAME)
 
 delete-conda:
-	conda env remove -y -n $(CONDA_NAME)
+	conda env remove -y -n $(NAME)
