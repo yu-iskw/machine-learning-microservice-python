@@ -59,6 +59,9 @@ docker build . -t iris-predictor
 
 # Run a docker container.
 docker run --rm -d -p 50052:50052 --name iris-predictor iris-predictor
+
+# Kill the docker container
+docker kill iris-predictor
 ```
 
 And then, we check if the client can access the server on docker or not:
