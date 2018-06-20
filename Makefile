@@ -13,5 +13,5 @@ kill-docker:
 create-conda:
 	conda env create -f environment.yml -n $(NAME)
 
-delete-conda:
+remove-conda:
 	conda env remove -y -n $(NAME)
