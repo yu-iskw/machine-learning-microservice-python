@@ -3,13 +3,15 @@ channels:
     - https://conda.anaconda.org/menpo
     - conda-forge
 dependencies:
-    - python==3.6
+    - python==3.5
     - protobuf
     - openblas
+    - numpy
+    - scipy
+    - pandas
+    - Cython
+    - scikit-learn==0.19.1
     - pip:
         - grpcio
         - grpcio-tools
-        - scikit-learn==0.19.0
-        - scipy
-        - numpy
-        - pandas
+        - flask-restful==0.3.6

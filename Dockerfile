@@ -32,7 +32,10 @@ RUN conda clean -tp -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# gRPC
 EXPOSE 50052
+# REST
+EXPOSE 5000
 
 COPY . /root/
 CMD ["python", "grpc_server.py"]
