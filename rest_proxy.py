@@ -5,7 +5,7 @@ import argparse
 import grpc
 
 from flask import Flask
-from flask_restful import reqparse, abort, Api, Resource, fields, marshal
+from flask_restful import reqparse, Api, Resource, fields, marshal
 
 import iris_pb2
 import iris_pb2_grpc
