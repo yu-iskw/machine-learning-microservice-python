@@ -15,3 +15,6 @@ create-conda:
 
 remove-conda:
 	conda env remove -y -n $(NAME)
+
+lint:
+	flake8

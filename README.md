@@ -79,6 +79,8 @@ I know having requests internally can be in vein.
 But, in terms of software development, a benefit that we don't need to develop different prediction functions is true as well.
 
 The REST API as proxy is `rest_proxy.py`
+It is simply implemented with [Flask\-RESTful](https://flask-restful.readthedocs.io/en/latest/).
+
 And the definition to launch both the gRPC API and the RESTful API is in `docker-compose.yml`.
 
 ![docker architecture](./docs/docker-architecture.png)
