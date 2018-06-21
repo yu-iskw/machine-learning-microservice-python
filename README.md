@@ -71,3 +71,29 @@ And then, we check if the client can access the server on docker or not:
 python iris_cliept.py --host HOST_NAME --port 50052
 Predicted species number: 0
 ```
+
+## Appendix: HTTP/REST API
+Sometimes you are faced with a situation that you need to offer both gRPC API and RESTful API.
+To avoid duplicated work, we can also define the HTTP/REST API as just proxy to the gRPC API.
+I know having requests internally can be in vein.
+But, in terms of software development, a benefit that we don't need to develop different prediction functions is true as well.
+
+The REST API as proxy is `rest_proxy.py`
+And the definition to launch both the gRPC API and the RESTful API is in `docker-compose.yml`.
+
+![docker architecture](./docs/docker-architecture.png)
+
+```
+# Launch the gRPC server and REST server on docker
+docker-composer -d
+
+# Request to the REST API.
+DOCKER_HOST="..."
+curl http://${DOCKER_HOST}:5000/ -X POST \
+  -d "sepal_length=6.8" \
+  -d "sepal_width=3.2" \
+  -d "petal_length=5.9" \
+  -d "petal_width=2.3"
+
+{"species": "2"}
+```

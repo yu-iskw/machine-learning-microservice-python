@@ -1,0 +1,18 @@
+version: '2.3'
+services:
+
+  grpc-server:
+    image: iris-predictor:latest
+    container_name: grpc-server
+    restart: always
+    ports:
+      - "50052:50052"
+    command: python -u grpc_server.py --port 50052
+
+  rest-proxy:
+    image: iris-predictor:latest
+    container_name: rest_proxy
+    restart: always
+    ports:
+      - "5000:5000"
+    command: python -u rest_proxy.py --host 0.0.0.0 --port 5000 --grpc_host "grpc-server" --grpc_port 50052
