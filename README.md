@@ -29,6 +29,9 @@ We can activate the environment with `source activate iris-predictor`, since the
 # Create an anaconda environment.
 conda env create -f environment.yml -n iris-predictor
 
+# Verify that the new environment was installed correctly, active environment is shown with '*'.
+conda env list
+
 # Remove the anaconda environment.
 conda env remove -y -n iris-predictor
 ```
@@ -68,7 +71,7 @@ And then, we check if the client can access the server on docker or not:
 
 ```
 # Execute it on your local machine, not a docker container.
-python iris_cliept.py --host HOST_NAME --port 50052
+python iris_client.py --host HOST_NAME --port 50052
 Predicted species number: 0
 ```
 
