@@ -7,7 +7,9 @@ services:
     restart: always
     ports:
       - "50052:50052"
-    command: python -u grpc_server.py --port 50052
+    environment:
+      - MAX_WORKER=10000
+      - PORT=50052
 
   rest-proxy:
     image: iris-predictor:latest
