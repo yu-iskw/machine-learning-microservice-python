@@ -1,6 +1,7 @@
 import os
 from concurrent import futures
 import time
+import argparse
 
 from sklearn.externals import joblib
 
@@ -35,10 +36,10 @@ class IrisPredictor(iris_pb2_grpc.IrisPredictorServicer):
         return iris_pb2.IrisPredictReply(species=result[0])
 
 
-def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+def serve(port, max_workers):
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     iris_pb2_grpc.add_IrisPredictorServicer_to_server(IrisPredictor(), server)
-    server.add_insecure_port('[::]:50052')
+    server.add_insecure_port('[::]:{port}'.format(port=port))
     server.start()
     try:
         while True:
@@ -48,4 +49,9 @@ def serve():
 
 
 if __name__ == '__main__':
-    serve()
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('--port', type=int, help='port number', required=False, default=5052)
+    parser.add_argument('--max_workers', type=int, help='# max workers', required=False, default=10)
+    args = parser.parse_args()
+
+    serve(port=args.port, max_workers=args.max_workers)

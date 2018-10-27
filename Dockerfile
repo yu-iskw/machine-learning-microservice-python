@@ -37,5 +37,9 @@ EXPOSE 50052
 # REST
 EXPOSE 5000
 
+# Environment variables
+ENV MAX_WORKERS 1
+ENV PORT 50052
+
 COPY . /root/
-CMD ["python", "grpc_server.py"]
+CMD python grpc_server.py --max_workers ${MAX_WORKERS} --port ${PORT}
