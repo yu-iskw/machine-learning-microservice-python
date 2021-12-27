@@ -50,7 +50,7 @@ def serve(port, max_workers):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('--port', type=int, help='port number', required=False, default=5052)
+    parser.add_argument('--port', type=int, help='port number', required=False, default=50052)
     parser.add_argument('--max_workers', type=int, help='# max workers', required=False, default=10)
     args = parser.parse_args()
 
